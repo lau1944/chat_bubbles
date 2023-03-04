@@ -71,6 +71,7 @@ class BubbleSpecialThree extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         child: Column(
+          crossAxisAlignment: isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             CustomPaint(
               painter: SpecialChatBubbleThree(
