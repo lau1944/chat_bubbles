@@ -18,6 +18,7 @@ class BubbleSpecialThree extends StatelessWidget {
   final bool delivered;
   final bool seen;
   final TextStyle textStyle;
+  final Widget? footer;
 
   const BubbleSpecialThree({
     Key? key,
@@ -32,6 +33,7 @@ class BubbleSpecialThree extends StatelessWidget {
       color: Colors.black87,
       fontSize: 16,
     ),
+    this.footer,
   }) : super(key: key);
 
   ///chat bubble builder method
@@ -68,44 +70,49 @@ class BubbleSpecialThree extends StatelessWidget {
       alignment: isSender ? Alignment.topRight : Alignment.topLeft,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        child: CustomPaint(
-          painter: SpecialChatBubbleThree(
-              color: color,
-              alignment: isSender ? Alignment.topRight : Alignment.topLeft,
-              tail: tail),
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * .7,
-            ),
-            margin: isSender
-                ? stateTick
-                    ? const EdgeInsets.fromLTRB(7, 7, 14, 7)
-                    : const EdgeInsets.fromLTRB(7, 7, 17, 7)
-                : const EdgeInsets.fromLTRB(17, 7, 7, 7),
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: stateTick
-                      ? const EdgeInsets.only(left: 4, right: 20)
-                      : const EdgeInsets.only(left: 4, right: 4),
-                  child: SelectableText(
-                    text,
-                    style: textStyle,
-                    textAlign: TextAlign.left,
-                  ),
+        child: Column(
+          children: [
+            CustomPaint(
+              painter: SpecialChatBubbleThree(
+                  color: color,
+                  alignment: isSender ? Alignment.topRight : Alignment.topLeft,
+                  tail: tail),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * .7,
                 ),
-                stateIcon != null && stateTick
-                    ? Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: stateIcon,
-                      )
-                    : const SizedBox(
-                        width: 1,
+                margin: isSender
+                    ? stateTick
+                        ? const EdgeInsets.fromLTRB(7, 7, 14, 7)
+                        : const EdgeInsets.fromLTRB(7, 7, 17, 7)
+                    : const EdgeInsets.fromLTRB(17, 7, 7, 7),
+                child: Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: stateTick
+                          ? const EdgeInsets.only(left: 4, right: 20)
+                          : const EdgeInsets.only(left: 4, right: 4),
+                      child: SelectableText(
+                        text,
+                        style: textStyle,
+                        textAlign: TextAlign.left,
                       ),
-              ],
+                    ),
+                    stateIcon != null && stateTick
+                        ? Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: stateIcon,
+                          )
+                        : const SizedBox(
+                            width: 1,
+                          ),
+                  ],
+                ),
+              ),
             ),
-          ),
+            footer != null ? footer! : const SizedBox()
+          ],
         ),
       ),
     );
